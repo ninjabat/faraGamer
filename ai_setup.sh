@@ -47,6 +47,12 @@ pip install -e .
 playwright install
 playwright install-deps
 
+# make it so we don't have to venv every time we want to use it, will switch on when we go to ~fara
+sudo apt install direnv
+echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+cd ~/fara
+echo "source .venv/bin/activate" > .envrc
+direnv allow
 
 #pip install vllm
 #pip install torch-c-dlpack-ext
