@@ -66,4 +66,4 @@ read -p "Press enter to start the server...."
 # quantization for 16GB vram, single card
 #vllm serve microsoft/Fara-7B --quantization $QUANT --port 5000 --dtype auto --tensor-parallel-size 1
 cd llama.cpp
-./llama-server -m models/microsoft_Fara-7B-Q6_K_L.gguf --mmproj models/Qwen2.5-VL-7B-mmproj-f16.gguf -ngl 99 --port 5000 --ctx-size 8192
+./llama-server -m models/microsoft_Fara-7B-Q6_K_L.gguf --mmproj models/Qwen2.5-VL-7B-mmproj-f16.gguf -ngl 99 --port 5000 --ctx-size 15000
