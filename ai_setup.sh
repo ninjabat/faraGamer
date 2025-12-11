@@ -35,7 +35,6 @@ wget -O models/microsoft_Fara-7B-Q6_K_L.gguf https://huggingface.co/bartowski/mi
 # download the vision encoder
 wget -O models/Qwen2.5-VL-7B-mmproj-f16.gguf https://huggingface.co/unsloth/Qwen2.5-VL-7B-Instruct-GGUF/resolve/main/mmproj-F16.gguf
 
-
 # now install fara
 cd ~
 sudo apt install git python3 python3-pip python3.12-venv
@@ -54,9 +53,6 @@ cd ~/fara
 echo "source .venv/bin/activate" > .envrc
 direnv allow
 
-#pip install vllm
-#pip install torch-c-dlpack-ext
-
 # check gpu is working 
 nvidia-smi
 
@@ -64,6 +60,5 @@ nvidia-smi
 read -p "Press enter to start the server...."
 
 # quantization for 16GB vram, single card
-#vllm serve microsoft/Fara-7B --quantization $QUANT --port 5000 --dtype auto --tensor-parallel-size 1
 cd llama.cpp
 ./llama-server -m models/microsoft_Fara-7B-Q6_K_L.gguf --mmproj models/Qwen2.5-VL-7B-mmproj-f16.gguf -ngl 99 --port 5000 --ctx-size 15000
