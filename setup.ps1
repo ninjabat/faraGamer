@@ -23,8 +23,9 @@ if (!(wsl --list --online)) {
 $wslList = wsl --list --verbose
 if ($wslList -notmatch $DistroName) {
     Write-Host "Installing $DistroName..."
+    Write-Host "Distro installed. Please create your user account in the popup window, exit your WSL console, then re-run this script." -ForegroundColor Yellow
     wsl --install -d $DistroName
-    Write-Host "Distro installed. Please create your user account in the popup window, then re-run this script." -ForegroundColor Yellow
+    
     exit
 } else {
     Write-Host "$DistroName is already installed." -ForegroundColor Green
