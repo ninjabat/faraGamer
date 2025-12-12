@@ -20,15 +20,17 @@ if (!(wsl --list --online)) {
     exit
 }
 
-$wslList = wsl --list --verbose
-if (!($wslList | Select-String -Pattern $DistroName -SimpleMatch)) {
-    Write-Host "Distro not found. Installing $DistroName..."
-    Write-Host "Distro installed. Please create your user account in the popup window, exit your WSL console, then re-run this script." -ForegroundColor Yellow
-    wsl --install -d $DistroName
-    
-    exit
-} else {
+# Try to run 'true' inside the distro. 
+# 2>$null hides the error text if the distro doesn't exist.
+wsl -d $DistroName -e true 2>$null
+
+if ($LASTEXITCODE -eq 0) {
     Write-Host "$DistroName is already installed." -ForegroundColor Green
+} else { 
+    Write-Host "Distro not found. Installing $DistroName..."
+    wsl --install -d $DistroName
+    Write-Host "Distro installed. Please create your user account in the popup window, then re-run this script." -ForegroundColor Yellow
+    exit
 }
 
 # --- Step 2: Model Selection ---
