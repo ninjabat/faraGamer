@@ -10,6 +10,14 @@
 $DistroName = "Ubuntu-24.04"
 $ProvisionScriptName = "provision.sh"
 
+# --- Robust Path Detection ---
+# Fixes issue where $PSScriptRoot is empty when running interactively (e.g. F8 in VS Code)
+if ($PSScriptRoot) {
+    $ScriptDir = $PSScriptRoot
+} else {
+    $ScriptDir = Get-Location
+}
+
 # --- Step 1: Check/Install WSL and Distro ---
 Write-Host "--- Step 1: Checking WSL Prerequisites ---" -ForegroundColor Cyan
 
@@ -65,7 +73,6 @@ $ModelFileName = $selectedModel.File
 Write-Host "`n--- Step 3: Running Provisioning inside $DistroName ---" -ForegroundColor Cyan
 
 # Locate the provision.sh script relative to this script
-$ScriptDir = $PSScriptRoot
 $LocalScriptPath = Join-Path -Path $ScriptDir -ChildPath $ProvisionScriptName
 
 if (!(Test-Path $LocalScriptPath)) {
@@ -73,15 +80,24 @@ if (!(Test-Path $LocalScriptPath)) {
     exit
 }
 
-# Convert the Windows path to a WSL path
-$WslScriptPath = wsl -d $DistroName wslpath -u "$LocalScriptPath"
+# Fix: Replace backslashes with forward slashes so Linux doesn't treat them as escape characters
+$SafePath = $LocalScriptPath -replace "\\", "/"
+Write-Host "Using safe path: $SafePath" -ForegroundColor Gray
+
+# Convert the Windows path to a WSL path using the safe string
+$WslScriptPath = wsl -d $DistroName wslpath -a "$SafePath" 2>$null
+
+if ([string]::IsNullOrWhiteSpace($WslScriptPath)) {
+    Write-Error "Failed to convert path to WSL format. Please check WSL functionality."
+    exit
+}
 
 Write-Host "Executing $ProvisionScriptName from $WslScriptPath..."
 
 # Execute the script. 
-# We use 'tr' to strip carriage returns (\r) just in case the .sh file was saved with Windows Line Endings (CRLF).
+# Fix: Use 'cat | tr' instead of '<' redirection to avoid path parsing issues
 # This creates a safe temp copy in /tmp and runs it.
-wsl -d $DistroName --cd "~" bash -c "tr -d '\r' < '$WslScriptPath' > /tmp/provision_safe.sh && bash /tmp/provision_safe.sh '$ModelFileName'"
+wsl -d $DistroName --cd "~" bash -c "cat '$WslScriptPath' | tr -d '\r' > /tmp/provision_safe.sh && bash /tmp/provision_safe.sh '$ModelFileName'"
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "`n--- Setup Complete! ---" -ForegroundColor Green
