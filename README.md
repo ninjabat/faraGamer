@@ -43,7 +43,7 @@ cd ~/llama.cpp
 ```
 
 ### 2. Query the model
-(separate tab)
+(separate tab) if installed correctly the virtual environment should be handled for you.
 ```
 cd ~/fara
 fara-cli --headful --task "whats the weather in san francisco now"
