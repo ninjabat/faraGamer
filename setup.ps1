@@ -51,8 +51,9 @@ $models = @(
     [PSCustomObject]@{ID=2; Name="Q6_K_L"; Size="~6.5 GB"; Desc="High Quality (Good VRAM)"; File="microsoft_Fara-7B-Q6_K_L.gguf"}
     [PSCustomObject]@{ID=3; Name="Q5_K_M"; Size="~5.4 GB"; Desc="Good Balance"; File="microsoft_Fara-7B-Q5_K_M.gguf"}
     [PSCustomObject]@{ID=4; Name="Q4_K_M"; Size="~4.7 GB"; Desc="Recommended (Standard)"; File="microsoft_Fara-7B-Q4_K_M.gguf"}
-    [PSCustomObject]@{ID=5; Name="Q3_K_M"; Size="~3.8 GB"; Desc="Low VRAM (Smallest)"; File="microsoft_Fara-7B-Q3_K_M.gguf"}
-)
+    [PSCustomObject]@{ID=5; Name="Q3_K_M"; Size="~3.8 GB"; Desc="Low VRAM"; File="microsoft_Fara-7B-Q3_K_M.gguf"}
+    [PSCustomObject]@{ID=6; Name="IQ2_M"; Size="~2.8 GB"; Desc="Literal smallest"; File="microsoft_Fara-7B-IQ2_M.gguf"}
+    )
 
 $models | Format-Table -Property ID, Name, Size, Desc -AutoSize
 
