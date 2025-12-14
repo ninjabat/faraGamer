@@ -39,3 +39,11 @@ Open a terminal (in WSL or Ubuntu) and launch the `llama.cpp` server. This hosts
 ```bash
 cd ~/llama.cpp
 ./llama-server -m models/$MODEL_NAME --mmproj models/Qwen2.5-VL-7B-mmproj-f16.gguf -ngl 99 --port 5000 --ctx-size 15000
+```
+
+### 2. Query the model
+(separate tab)
+```
+cd ~/fara
+fara-cli --headful --task "whats the weather in san francisco now"
+```
