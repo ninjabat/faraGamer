@@ -21,7 +21,8 @@ I have a PowerShell script to automate the entire setup, including installing WS
     .\setup.ps1
     ```
     *Note: You may need to restart WSL or your computer a few times during this process. The script will prompt you if necessary.*
-
+3. You may need to rerun the script depending on your restart requirements.
+   
 ### Option B: Bare Metal Ubuntu
 If you are running natively on Ubuntu, use the provision script to install dependencies, compile `llama.cpp`, and set up the Python environment.
 
