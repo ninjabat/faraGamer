@@ -26,10 +26,11 @@ I have a PowerShell script to automate the entire setup, including installing WS
 ### Option B: Bare Metal Ubuntu
 If you are running natively on Ubuntu, use the provision script to install dependencies, compile `llama.cpp`, and set up the Python environment.
 
-1.  Open a terminal.
-2.  Run the provision script:
+1.  Download the best fit model file for your GPU (powershell install provides a menu): https://huggingface.co/bartowski/microsoft_Fara-7B-GGUF.
+2.  Open a terminal.
+3.  Run the provision script:
     ```bash
-    ./provision.sh
+    ./provision.sh $MODELFILE
     ```
 
 ## Usage
