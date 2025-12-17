@@ -1,6 +1,6 @@
 # faraGamer
 
-**faraGamer** is a wrapper for Microsoft's [Fara-7B](https://github.com/microsoft/fara) agentic model, optimized for gamer-spec PCs (consumer NVIDIA GPUs with <32GB VRAM).
+**faraGamer** is a wrapper for Microsoft's [Fara-7B](https://github.com/microsoft/fara) agentic model, optimized for gamer-spec PCs (consumer NVIDIA GPUs with <32GB VRAM). Setting this up manually was a little annoying, so this should make things a bit more push-button.
 
 It enables you to host the LLM locally using **llama.cpp** (avoiding cloud costs) and allows the agent to browse the web autonomously using a headful **Firefox** instance via Playwright.
 
